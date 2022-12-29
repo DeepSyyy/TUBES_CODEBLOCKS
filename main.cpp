@@ -1,64 +1,94 @@
 #include "kantor.h"
-#include <cstring>
-
 int main()
 {
+    system("cls");
     listPegawai LP;
+    alamatDepartmen dep;
+    alamatPegawai peg;
+    string nip, kodePemecatan, kodePindah;
+    char pemecatan;
+    int pilihan, N;
     listDepartmen LD;
     createListPegawai(LP);
     createListDepartmen(LD);
-    infotypeDepartmen x;
-    alamatDepartmen p;
-    //membuat departmen keuangan
-    x = createDepartment("Keuangan", "KUG");
-    createElmDepartmen(x, p);
-    insertLastDepartmen(LD, p);
-    //membuat departmen SDM
-    x = createDepartment("Sumber Daya Manusia", "SDM");
-    createElmDepartmen(x, p);
-    insertLastDepartmen(LD, p);
-    //membuat departmen Administrasi
-    x = createDepartment("Administrasi", "ADM");
-    createElmDepartmen(x, p);
-    insertLastDepartmen(LD, p);
-    infotypePegawai y;
-    //proses input pegawai dan memasangkannya ke departmen berdasar nip
-    for(int i = 0; i < 2; i++){
-        cout << "Masukkan nama pegawai: ";
-        cin >> y.nama;
-        cout << "Masukkan nip pegawai: ";
-        cin >> y.nip;
-        cout << "Masukkan jabatan pegawai: ";
-        cin >> y.jabatan;
-        cout << "Masukkan gaji pegawai: ";
-        cin >> y.gaji;
-        alamatPegawai q;
-        createElmPegawai(y, q);
-        insertLastPegawai(LP, q);
-        char *cstr = new char[y.nip.length() + 1];
-        strcpy(cstr, y.nip.c_str());
-        if(cstr[0] == '2'){
-            memasangkanPegawai(LP, LD,y.nama, y.nip, "SDM");
-        }else if(cstr[0] == '3'){
-            memasangkanPegawai(LP, LD,y.nama, y.nip, "KUG");
-        }else{
-            memasangkanPegawai(LP, LD,y.nama, y.nip, "ADM");
+    departmentDefault(LD);
+    pilihan = menu();
+    while(pilihan != 0){
+
+        switch(pilihan){
+            case 1:
+                system("cls");
+                cout<<"Masukkan jumlah Department yang ingin ditambah: ";
+                cin>>N;
+                menambahDepartment(LD, N);
+                break;
+            case 2:
+                system("cls");
+                cout<<"Masukkan jumlah Pegawai yang ingin ditambah: ";
+                cin>>N;
+                menambahkanPegawai(LP, LD, N);
+                system("cls");
+                break;
+            case 3:
+                system("cls");
+                printPegawai(LP);
+                break;
+            case 4:
+                system("cls");
+                printDepartmen(LD);
+                break;
+            case 5:
+                system("cls");
+                sortingDepartmentByPegawaiPalingBanyak(LD, LP);
+                break;
+            case 6:
+                system("cls");
+                sortingDepartmentByPegawaiPalingSedikit(LD, LP);
+                break;
+            case 7:
+                system("cls");
+                menampilkanPegawaiPalingSedikit(LD, LP);
+                break;
+            case 8:
+                system("cls");
+                menampilkanPegawaiPalingBanyak(LD, LP);
+                break;
+            case 9:
+                system("cls");
+                cout<<"Masukkan NIP pegawai yang ingin dihapus: ";
+                cin>>nip;
+                deletePegawai(LP, nip);
+                break;
+            case 10:
+                system("cls");
+                cout<<"Masukkan kode department yang ingin dihapus: ";
+                cin>>kodePemecatan;
+                cout<<"Apakah pegawai semua dipecat? (Y/N): ";
+                cin>>pemecatan;
+                if(pemecatan == 'Y' || pemecatan == 'y'){
+                    deleteDepartment(LD, LP, kodePemecatan);
+                }else if(pemecatan == 'N' || pemecatan == 'n'){
+                    peg = first(LP);
+                    while(peg != NULL){
+                        if(info(nextDepartment(peg)).kode == kodePemecatan){
+                            cout<<"Pindahkan kemanapun? (Masukkan kode department): ";
+                            cin>>kodePindah;
+                            memindahkanPegawai(LP, LD, info(peg).nip, kodePindah);
+                            deleteDepartment(LD, LP, kodePemecatan);
+                        }
+                        peg = next(peg);
+                    }
+
+                }else{
+                    cout<<"Inputan salah!"<<endl;
+                }
+                break;
+            default:
+                break;
         }
+        cout<<endl;
+        pilihan = menu();
     }
-    printDepartmen(LD);
-    printPegawai(LP);
-    cout<<endl;
-    printDepartmenbyPegawai(LP);
-    cout<<endl;
-    string NIP;
-    cout<<"Pegawai yang keluar";
-    cin>>NIP;
-    deletePegawai(LP,  NIP);
-    printDepartmen(LD);
-    printPegawai(LP);
-    cout<<endl;
-    menampilkanPegawaiPalingSedikit(LD, LP);
-    cout<<endl;
-    menampilkanPegawaiPalingBanyak(LD, LP);
+
     return 0;
 }

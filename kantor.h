@@ -8,6 +8,7 @@ using namespace std;
 #define last(L) L.last
 #define next(P) P->next
 #define nextDepartment(P) P->nextDepartment
+#define prev(P) P->prev
 #define info(P) P->info
 
 struct department{
@@ -30,11 +31,13 @@ typedef struct elmPegawai *alamatPegawai;
 typedef struct elmDepartmen *alamatDepartmen;
 struct elmDepartmen{
     alamatDepartmen next;
+    alamatDepartmen prev;
     infotypeDepartmen info;
 };
 
 struct elmPegawai{
     alamatPegawai next;
+    alamatPegawai prev;
     alamatDepartmen nextDepartment;
     infotypePegawai info;
 };
@@ -60,7 +63,7 @@ alamatDepartmen searchDepartmen(listDepartmen L, string nama);
 void printPegawai(listPegawai L);
 void printDepartmen(listDepartmen L);
 void printDepartmenbyPegawai(listPegawai LP);
-void memasangkanPegawai(listPegawai &LP, listDepartmen &LD,string nama, string nip, string namaDepartmen);
+void memasangkanPegawai(listPegawai &L, listDepartmen &D, string nama, string kodeDepartmen);
 infotypeDepartmen createDepartment(string nama, string kode);
 void deletePegawai(listPegawai &LP,  string nip);
 void deleteFirstPegawai(listPegawai &L, alamatPegawai &p);
@@ -68,5 +71,13 @@ void deleteLastPegawai(listPegawai &L, alamatPegawai &p);
 void deleteFirstDepartmen(listDepartmen &L, alamatDepartmen &p);
 void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP);
 void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP);
+void menambahDepartment(listDepartmen &LD, int N);
+void departmentDefault(listDepartmen &LD);
+void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N);
+void sortingDepartmentByPegawaiPalingBanyak(listDepartmen &LD, listPegawai LP);
+void sortingDepartmentByPegawaiPalingSedikit(listDepartmen &LD, listPegawai LP);
+void memindahkanPegawai(listPegawai &LP, listDepartmen &LD, string nip, string kodeDepartmen);
+void deleteDepartment(listDepartmen &LD, listPegawai &LP, string kode);
+int menu();
 
 #endif
