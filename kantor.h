@@ -61,7 +61,7 @@ void insertLastDepartmen(listDepartmen &L, alamatDepartmen p);
 alamatPegawai searchPegawai(listPegawai L, string nip);
 alamatDepartmen searchDepartmen(listDepartmen L, string nama);
 void printPegawai(listPegawai L);
-void printDepartmen(listDepartmen L);
+void printDepartmen(listDepartmen L, listPegawai LP);
 void printDepartmenbyPegawai(listPegawai LP);
 void memasangkanPegawai(listPegawai &L, listDepartmen &D, string nama, string kodeDepartmen);
 infotypeDepartmen createDepartment(string nama, string kode);
@@ -71,13 +71,14 @@ void deleteLastPegawai(listPegawai &L, alamatPegawai &p);
 void deleteFirstDepartmen(listDepartmen &L, alamatDepartmen &p);
 void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP);
 void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP);
-void menambahDepartment(listDepartmen &LD, int N);
+void menambahDepartment(listDepartmen &LDs);
 void departmentDefault(listDepartmen &LD);
 void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N);
 void sortingDepartmentByPegawaiPalingBanyak(listDepartmen &LD, listPegawai LP);
 void sortingDepartmentByPegawaiPalingSedikit(listDepartmen &LD, listPegawai LP);
 void memindahkanPegawai(listPegawai &LP, listDepartmen &LD, string nip, string kodeDepartmen);
 void deleteDepartment(listDepartmen &LD, listPegawai &LP, string kode);
+bool isSameNIP(listPegawai LP);
 int menu();
 
 #endif

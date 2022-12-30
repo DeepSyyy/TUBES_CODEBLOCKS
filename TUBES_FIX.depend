@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1672333641 source:d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\main.cpp
+1672398604 source:d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\main.cpp
 	"kantor.h"
 
-1672333756 d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\kantor.h
+1672398682 d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\kantor.h
 	<iostream>
 
-1672333565 source:d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\kantor.cpp
+1672398682 source:d:\kuliah\tingkat 2\smt 3\std\praktikum\tubes_fix\kantor.cpp
 	"kantor.h"
 
