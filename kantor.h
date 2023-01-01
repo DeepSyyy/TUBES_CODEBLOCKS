@@ -20,7 +20,6 @@ struct department{
 struct pegawai{
     string nama;
     string nip;
-    string jabatan;
     int gaji;
 };
 
@@ -68,17 +67,18 @@ infotypeDepartmen createDepartment(string nama, string kode);
 void deletePegawai(listPegawai &LP,  string nip);
 void deleteFirstPegawai(listPegawai &L, alamatPegawai &p);
 void deleteLastPegawai(listPegawai &L, alamatPegawai &p);
+void deleteLastDepartment(listDepartmen &L, alamatDepartmen &p);
 void deleteFirstDepartmen(listDepartmen &L, alamatDepartmen &p);
 void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP);
 void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP);
-void menambahDepartment(listDepartmen &LDs);
+void menambahDepartment(listDepartmen &LD, int N);
 void departmentDefault(listDepartmen &LD);
 void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N);
-void sortingDepartmentByPegawaiPalingBanyak(listDepartmen &LD, listPegawai LP);
-void sortingDepartmentByPegawaiPalingSedikit(listDepartmen &LD, listPegawai LP);
 void memindahkanPegawai(listPegawai &LP, listDepartmen &LD, string nip, string kodeDepartmen);
 void deleteDepartment(listDepartmen &LD, listPegawai &LP, string kode);
 bool isSameNIP(listPegawai LP);
+void menampilkanDepartmentdenganPegawainya(listDepartmen &LD, listPegawai &LP, string kode);
+void menampilkanPegawaidenganDepartmen(listPegawai &LP, listDepartmen &LD, string nip);
 int menu();
 
 #endif

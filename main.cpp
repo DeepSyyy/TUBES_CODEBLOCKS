@@ -6,7 +6,7 @@ int main()
     listPegawai LP;
     alamatDepartmen dep, searchingDep;
     alamatPegawai peg;
-    string nip, kodePemecatan, kodePindah;
+    string nip, kodePemecatan, kodePindah, kodeCari;
     char pemecatan, M;
     int pilihan, N;
     listDepartmen LD;
@@ -26,14 +26,20 @@ int main()
             // jkika y maka menambahkan department jika tidak maka kembali ke menu utama
             if ((M == 'Y') || (M == 'y'))
             {
-                menambahDepartment(LD);
+                cout<<"Masukkan jumlah department yang ingin ditambah: ";
+                cin >> N;
+                menambahDepartment(LD, N);
             }
             break;
         case 2:
             system("cls");
-            cout << "Masukkan jumlah Pegawai yang ingin ditambah: ";
-            cin >> N;
-            menambahkanPegawai(LP, LD, N);
+            cout<<"Q: Apakah anda ingin menambah pegawai? (Y/N) ";
+            cin>>M;
+            if((M == 'Y') || (M == 'y')){
+                cout<<"Masukkan jumlah department yang ingin ditambah: ";
+                cin >> N;
+                menambahkanPegawai(LP, LD, N);
+            }
             system("cls");
             break;
         case 3:
@@ -46,11 +52,23 @@ int main()
             break;
         case 5:
             system("cls");
-            sortingDepartmentByPegawaiPalingBanyak(LD, LP);
+            if(first(LP) != NULL){
+                cout<<"Masukkan NIP dari pegawai: ";
+                cin>>nip;
+                menampilkanPegawaidenganDepartmen(LP, LD, nip);
+            }else{
+                cout<<"Maaf List Pegawai Kosong"<<endl;
+            }
             break;
         case 6:
             system("cls");
-            sortingDepartmentByPegawaiPalingSedikit(LD, LP);
+            if(first(LD) != NULL){
+                cout<< "Masukkan kode department: ";
+                cin>> kodeCari;
+                menampilkanDepartmentdenganPegawainya(LD, LP, kodeCari);
+            }else{
+                cout<<"Maaf List Kosong"<<endl;
+            }
             break;
         case 7:
             system("cls");
@@ -62,9 +80,13 @@ int main()
             break;
         case 9:
             system("cls");
-            cout << "Masukkan NIP pegawai yang ingin dihapus: ";
-            cin >> nip;
-            deletePegawai(LP, nip);
+            if(first(LP) == NULL){
+                cout<<"Maaf List Pegawai Kosong"<<endl;
+            }else{
+                cout << "Masukkan NIP pegawai yang ingin dihapus: ";
+                cin >> nip;
+                deletePegawai(LP, nip);
+            }
             break;
         case 10:
             system("cls");
@@ -80,24 +102,40 @@ int main()
             }
             cout << "Apakah pegawai semua dipecat? (Y/N): ";
             cin >> pemecatan;
+            deleteDepartment(LD, LP, kodePemecatan);
+            peg = first(LP);
             if (pemecatan == 'Y' || pemecatan == 'y')
             {
-                deleteDepartment(LD, LP, kodePemecatan);
+                if(peg != NULL){
+                    while(peg != NULL){
+                        if(info(nextDepartment(peg)).kode == kodePemecatan){
+                            deletePegawai(LP, info(peg).nip);
+                        }
+                        peg = next(peg);
+                    }
+                }
             }
             else if (pemecatan == 'N' || pemecatan == 'n')
             {
                 peg = first(LP);
-                while (peg != NULL)
+                if(peg != NULL)
                 {
-                    if (info(nextDepartment(peg)).kode == kodePemecatan)
-                    {
-                        cout << "Pindahkan kemanapun? (Masukkan kode department): ";
-                        cin >> kodePindah;
-                        memindahkanPegawai(LP, LD, info(peg).nip, kodePindah);
-                        deleteDepartment(LD, LP, kodePemecatan);
-                    }
-                    peg = next(peg);
+                        while (peg != NULL)
+                        {
+                            if (info(nextDepartment(peg)).kode == kodePemecatan)
+                            {
+                                cout << "Pindahkan kemanapun? (Masukkan kode department): ";
+                                cin >> kodePindah;
+                                memindahkanPegawai(LP, LD, info(peg).nip, kodePindah);
+                                deleteDepartment(LD, LP, kodePemecatan);
+                            }
+                            peg = next(peg);
+                        }
+                }else{
+
+                    cout<<"Maaf List Pegawai Kosong"<<endl;
                 }
+
             }
             else
             {

@@ -3,7 +3,7 @@
 void createListPegawai(listPegawai &L)
 {
     /*I.S.
-    F.S.*/
+    F.S. Membuat list kosong*/
     first(L) = NULL;
     last(L) = NULL;
 }
@@ -11,12 +11,14 @@ void createListPegawai(listPegawai &L)
 void createListDepartmen(listDepartmen &L)
 {
     /*I.S.
-    F.S.*/
+    F.S. Membuat List Kosong*/
     first(L) = NULL;
     last(L) = NULL;
 }
 infotypeDepartmen createDepartment(string nama, string kode)
 {
+    /*Mengembalikan sebuah infotype dari parameter
+    */
     infotypeDepartmen x;
     x.nama = nama;
     x.kode = kode;
@@ -25,8 +27,9 @@ infotypeDepartmen createDepartment(string nama, string kode)
 }
 void createElmDepartmen(infotypeDepartmen x, alamatDepartmen &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi sebuah data department
+    F.S. element yang berisi data department disimpan dalan
+    pointer*/
     p = new elmDepartmen;
     info(p) = x;
     next(p) = NULL;
@@ -34,29 +37,30 @@ void createElmDepartmen(infotypeDepartmen x, alamatDepartmen &p)
 
 void createElmPegawai(infotypePegawai x, alamatPegawai &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi sebuah dara pegawai
+    F.S. element yang berisi data pegawai yang disimpan dalam
+    pointer*/
     p = new elmPegawai;
     info(p) = x;
     next(p) = NULL;
     nextDepartment(p) = NULL;
 }
 
-infotypePegawai createPegawai(string nama, string nip, string jabatan, int gaji)
+infotypePegawai createPegawai(string nama, string nip, int gaji)
 {
-    /**/
+    /* Membungkus parameter menjadi infotype
+    */
     infotypePegawai x;
     x.nama = nama;
     x.nip = nip;
-    x.jabatan = jabatan;
     x.gaji = gaji;
     return x;
 }
 
 void insertLastPegawai(listPegawai &L, alamatPegawai p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (bisa kosong)
+    F.S. Element List baru akan ditambahkan dipaling belakang*/
     if (first(L) == NULL)
     {
         first(L) = p;
@@ -79,8 +83,8 @@ void insertLastPegawai(listPegawai &L, alamatPegawai p)
 
 void deleteFirstPegawai(listPegawai &L, alamatPegawai &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List(mungkin kosong)
+    F.S. Menhapus bagian pertama dari List dan simipan pada pointer*/
     if (first(L) != NULL)
     {
         if (first(L) == last(L))
@@ -101,8 +105,8 @@ void deleteFirstPegawai(listPegawai &L, alamatPegawai &p)
 
 void deleteLastPegawai(listPegawai &L, alamatPegawai &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menhapus bagian List paling akhir dan disimpan pada pointer*/
     if (first(L) != NULL)
     {
         if (first(L) == last(L))
@@ -123,8 +127,8 @@ void deleteLastPegawai(listPegawai &L, alamatPegawai &p)
 
 void deleteAfterPegawai(listPegawai &L, alamatPegawai prec, alamatPegawai &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menghapus bagian list yang ingin dihapus dan disimpan paada pointer*/
     if (first(L) != NULL)
     {
         if (first(L) == last(L))
@@ -146,9 +150,8 @@ void deleteAfterPegawai(listPegawai &L, alamatPegawai prec, alamatPegawai &p)
 
 void insertLastDepartmen(listDepartmen &L, alamatDepartmen p)
 {
-    /*I.S.
-
-    F.S*/
+     /*I.S. Terdefinisi List (bisa kosong)
+    F.S. Element List baru akan ditambahkan dipaling belakang*/
     if (first(L) == NULL)
     {
         first(L) = p;
@@ -172,10 +175,52 @@ void insertLastDepartmen(listDepartmen &L, alamatDepartmen p)
     }
 }
 
+void deleteFirstDepartmen(listDepartmen &LD, alamatDepartmen &p){
+    /*I.S. Terdefinisi List(mungkin kosong)
+    F.S. Menhapus bagian pertama dari List dan simipan pada pointer*/
+    if (first(LD) != NULL)
+    {
+        if (first(LD) == last(LD))
+        {
+            p = first(LD);
+            first(LD) = NULL;
+            last(LD) = NULL;
+        }
+        else
+        {
+            p = first(LD);
+            first(LD) = next(p);
+            next(p) = NULL;
+            prev(first(LD)) = NULL;
+        }
+    }
+}
+
+void deleteLastDepartment(listDepartmen &L, alamatDepartmen &p){
+     /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menhapus bagian List paling akhir dan disimpan pada pointer*/
+    if (first(L) != NULL)
+    {
+        if (first(L) == last(L))
+        {
+            p = first(L);
+            first(L) = NULL;
+            last(L) = NULL;
+        }
+        else
+        {
+            p = last(L);
+            last(L) = prev(p);
+            prev(p) = NULL;
+            next(last(L)) = NULL;
+        }
+    }
+}
+
 void deleteAfterDepartmen(listDepartmen &L, alamatDepartmen prec, alamatDepartmen &p)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menghapus bagian list yang ingin dihapus dan disimpan paada pointer*/
     if (first(L) != NULL)
     {
         if (first(L) == last(L))
@@ -197,7 +242,8 @@ void deleteAfterDepartmen(listDepartmen &L, alamatDepartmen prec, alamatDepartme
 
 alamatPegawai searchPegawai(listPegawai L, string nip)
 {
-    /* */
+    /*Mengembalikan alamat sebuah alamat jika ditemukan, jika tidak\
+    menge,balikan NULL */
     alamatPegawai p = first(L);
     while (p != NULL)
     {
@@ -212,7 +258,8 @@ alamatPegawai searchPegawai(listPegawai L, string nip)
 
 alamatDepartmen searchDepartmen(listDepartmen L, string kode)
 {
-    /* */
+    /*Mengembalikan alamat sebuah alamat jika ditemukan, jika tidak\
+    menge,balikan NULL */
     alamatDepartmen p = first(L);
     while (p != NULL)
     {
@@ -227,8 +274,9 @@ alamatDepartmen searchDepartmen(listDepartmen L, string kode)
 
 void printPegawai(listPegawai L)
 {
-    /*I.S. L terdefinisi bisa kosong
-    F.S*/
+    /*I.S. L terdefinisi List bisa kosong
+    F.S Menampilkan data dari pegawai*/
+    int i = 1;
     cout << "=========== Data Pegawai ===========" << endl;
     if (first(L) == NULL)
     {
@@ -239,31 +287,19 @@ void printPegawai(listPegawai L)
         alamatPegawai p = first(L);
         while (p != NULL)
         {
+            cout<< "Data Pegawai ke-"<<i<<endl;
             cout << "nama : " << info(p).nama << endl;
             cout << "nip : " << info(p).nip << endl;
-            cout << "jabatan : " << info(p).jabatan << endl;
             cout << "gaji : " << info(p).gaji << endl;
-
+            i = i + 1;
             p = next(p);
+            cout<<endl;
+            cout<<endl;
         }
     }
 }
 
-void printDepartmenbyPegawai(listPegawai L)
-{
-    /*I.S.
-    F.S. */
-    alamatPegawai p = first(L);
-    alamatDepartmen d;
-    while (p != NULL)
-    {
-        infotypePegawai x = info(p);
-        cout << "departmen dari " << x.nama << " dengan NIP" << x.nip << " adalah : " << endl;
-        cout << "nama : " << info(nextDepartment(p)).nama << endl;
-        cout << "kode departemen : " << info(nextDepartment(p)).kode << endl;
-        p = next(p);
-    }
-}
+
 
 int menghitungJumlahPegawai(listDepartmen LD, listPegawai LP, string kode)
 {
@@ -292,8 +328,9 @@ int menghitungJumlahPegawai(listDepartmen LD, listPegawai LP, string kode)
 
 void printDepartmen(listDepartmen L, listPegawai LP)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. L terdefinisi List bisa kosong
+    F.S Menampilkan data dari Department*/
+    int i = 1;
     cout << "=========== Data Departmen ===========" << endl;
     if (first(L) == NULL)
     {
@@ -304,19 +341,21 @@ void printDepartmen(listDepartmen L, listPegawai LP)
         alamatDepartmen p = first(L);
         while (p != NULL)
         {
+            cout<< "Data department ke-"<<i<<endl;
             cout << "nama : " << info(p).nama << endl;
             cout << "kode departemen : " << info(p).kode << endl;
             cout << "jumlah pegawai : " << menghitungJumlahPegawai(L, LP, info(p).kode) << endl;
-
+            i = i+1;
             p = next(p);
+            cout<<endl;
         }
     }
 }
 
 void memasangkanPegawai(listPegawai &L, listDepartmen &D, string nip, string kodeDepartmen)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (munkin kosong)
+    F.S. Memasangkan Pegawai dengan Department berdasar kode Department*/
     alamatPegawai p = searchPegawai(L, nip);
     alamatDepartmen d = searchDepartmen(D, kodeDepartmen);
     if ((p != NULL) && (d != NULL))
@@ -331,8 +370,8 @@ void memasangkanPegawai(listPegawai &L, listDepartmen &D, string nip, string kod
 
 void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP)
 {
-    /*I.S.
-    F.S*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menampilkan Department dengan jumlah pegawai paling banyak*/
     alamatDepartmen p = first(LD);
     int jumlah = 0;
     string kode;
@@ -354,8 +393,8 @@ void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP)
 
 void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP)
 {
-    /*I.S
-    F.S*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menampilkan Department dengan Jumlah pegawai paling sedikit*/
     alamatDepartmen p = first(LD);
     int jumlah = 100;
     string kode;
@@ -375,27 +414,36 @@ void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP)
     cout << "jumlah pegawai : " << jumlah << endl;
 }
 
-void menambahDepartment(listDepartmen &LD)
+void menambahDepartment(listDepartmen &LD, int N)
 {
-    /*I.S.
-    F.S.*/
-    infotypeDepartmen x;
-    string nama, kode;
-    alamatDepartmen p;
-    cout << "Masukkan nama departmen : ";
-    cin >> nama;
-    cout << "Masukkan kode departmen : ";
-    cin >> kode;
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menambah department kedalam List dengan jumlah tertentu*/
+    for(int i = 1; i <= N; i++){
+        cout<<"==== Data ["<<i<<"]"<<endl;
+        infotypeDepartmen x;
+        string nama, kode;
+        alamatDepartmen p;
+        cout << "Masukkan nama departmen : ";
+        cin >> nama;
+        cout << "Masukkan kode departmen : ";
+        cin >> kode;
+        if(first(LD) != NULL){
+            while(searchDepartmen(LD, kode) != NULL){
+                cout<<"Kode department sudah ada, masukkan kode department yang baru: "<<endl;
+                cin>> kode;
+            }
+        }
+        x = createDepartment(nama, kode);
+        createElmDepartmen(x, p);
+        insertLastDepartmen(LD, p);
+    }
 
-    x = createDepartment(nama, kode);
-    createElmDepartmen(x, p);
-    insertLastDepartmen(LD, p);
 }
 
 void departmentDefault(listDepartmen &LD)
 {
-    /*I.S
-    F.S*/
+    /*I.S. Terdefinisi List
+    F.S. Membuat daftar department yang sudah ada di dalam List*/
     string nama, kode;
     infotypeDepartmen x;
     alamatDepartmen p;
@@ -418,64 +466,51 @@ void departmentDefault(listDepartmen &LD)
     insertLastDepartmen(LD, p);
 }
 
-void sortingDepartmentByPegawaiPalingSedikit(listDepartmen &LD, listPegawai LP)
+void menampilkanDepartmentdenganPegawainya(listDepartmen &LD, listPegawai &LP, string kode)
 {
-    /*I.S.
-    F.S.*/
-    alamatDepartmen p = first(LD);
-    alamatDepartmen q = next(p);
-    while (p != NULL)
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menampilkan satu department berdasar kode department*/
+    alamatDepartmen p = searchDepartmen(LD, kode);
+    if (p != NULL)
     {
+        cout << "Kode departmen : " << info(p).kode << endl;
+        cout << "Nama departmen : " << info(p).nama << endl;
+        cout << "Jumlah pegawai : " << menghitungJumlahPegawai(LD, LP, info(p).kode)<< endl;
+        cout << "Daftar pegawai : " << endl;
+        alamatPegawai q = first(LP);
         while (q != NULL)
         {
-            int jumlahPegawaiP = menghitungJumlahPegawai(LD, LP, info(p).kode);
-            int jumlahPegawaiQ = menghitungJumlahPegawai(LD, LP, info(q).kode);
-            if (jumlahPegawaiP < jumlahPegawaiQ)
+            if (info(nextDepartment(q)).kode == info(p).kode)
             {
-                infotypeDepartmen temp = info(p);
-                info(p) = info(q);
-                info(q) = temp;
+                cout << "Nama : " << info(q).nama << endl;
+                cout << "NIP : " << info(q).nip << endl;
             }
             q = next(q);
         }
-        p = next(p);
+    }else{
+        if(first(LD) == NULL){
+            cout<<"List Kosong"<<endl;
+        }else{
+            cout<< "Kode tidak temukan"<<endl;
+            cin>>kode;
+            menampilkanDepartmentdenganPegawainya(LD,LP,kode);
+        }
     }
-    cout << "Program Berhasil" << endl;
 }
 
-void sortingDepartmentByPegawaiPalingBanyak(listDepartmen &LD, listPegawai LP)
-{
-    /*I.S.
-    F.S.*/
-    alamatDepartmen p = first(LD);
-    alamatDepartmen q = next(p);
-    while (p != NULL)
-    {
-        while (q != NULL)
-        {
-            int jumlahPegawaiP = menghitungJumlahPegawai(LD, LP, info(p).kode);
-            int jumlahPegawaiQ = menghitungJumlahPegawai(LD, LP, info(q).kode);
-            if (jumlahPegawaiP > jumlahPegawaiQ)
-            {
-                infotypeDepartmen temp = info(p);
-                info(p) = info(q);
-                info(q) = temp;
-            }
-            q = next(q);
-        }
-        p = next(p);
-    }
-}
+
 
 int menu()
 {
+    /*Mengembalikan angka untuk menu
+    */
     int pilihan;
-    cout << "1. Menambahkan data N department" << endl;
+    cout << "1. Menambahkan data department" << endl;
     cout << "2. Menambahkan data N pegawai" << endl;
     cout << "3. Menampilkan data pegawai" << endl;
     cout << "4. Menampilkan data departmen" << endl;
-    cout << "5. Mensorting data departmen berdasarkan jumlah pegawai paling sedikit" << endl;
-    cout << "6. Mensorting data department berdasarkan jumlah pegawai paling banyak" << endl;
+    cout << "5. Menampilkan pegawai berdasar NIP beserta departmentnya"<<endl;
+    cout << "6. Menampilkan data depatment beserta pegawainya"<<endl;
     cout << "7. Menampilkan department dengan jumlah pegawai paling sedikit" << endl;
     cout << "8. Menampilkan department dengan jumlah pegawai paling banyak" << endl;
     cout << "9. Menghapus pegawai dari departmen" << endl;
@@ -488,14 +523,15 @@ int menu()
 
 void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menambahkan sejumlah N pegawai*/
     infotypePegawai x;
     string kodeDepartmen, nama, nip, jabatan;
     int gaji;
     alamatPegawai p;
-    for (int i = 0; i < N; i++)
+    for (int i = 1; i <= N; i++)
     {
+        cout<< "Data Pegawai ke-"<<i<<endl;
         cout << "Masukkan nama pegawai : ";
         cin >> nama;
         cout << "Masukkan nip pegawai : ";
@@ -508,8 +544,6 @@ void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N)
                 cin >> nip;
             }
         }
-        cout << "Masukkan jabatan pegawai : ";
-        cin >> jabatan;
         cout << "Masukkan gaji pegawai : ";
         cin >> gaji;
         cout << "Masukkan kode department pegawai : ";
@@ -518,70 +552,109 @@ void menambahkanPegawai(listPegawai &LP, listDepartmen &LD, int N)
         {
             while (searchDepartmen(LD, kodeDepartmen) == NULL)
             {
+                printDepartmen(LD, LP);
                 cout << "Kode department tidak ada, masukkan kode department yang ada : ";
                 cin >> kodeDepartmen;
             }
         }
-        x = createPegawai(nama, nip, jabatan, gaji);
+        x = createPegawai(nama, nip, gaji);
         createElmPegawai(x, p);
         insertLastPegawai(LP, p);
         memasangkanPegawai(LP, LD, nip, kodeDepartmen);
     }
 }
 
-// delete department and pegawai yang ada pada department
 void deleteDepartment(listDepartmen &LD, listPegawai &LP, string kode)
 {
-    /*I.S.
-    F.S.*/
-    alamatDepartmen p = searchDepartmen(LD, kode);
-    alamatPegawai q = first(LP);
-    while (q != NULL)
-    {
-        if (info(nextDepartment(q)).kode == kode)
-        {
-            deletePegawai(LP, info(q).nip);
+    /*I.S. Terdefinisi L (mungkin kosong)
+    F.S. Menghapus department berdasar kode department*/
+    alamatDepartmen d = searchDepartmen(LD, kode);
+    if(d != NULL){
+        if(d == first(LD)){
+            deleteFirstDepartmen(LD, d);
+        }else if(d == last(LD)){
+            deleteLastDepartment(LD, d);
+        }else{
+            alamatDepartmen prec = prev(d);
+            deleteAfterDepartmen(LD, prec, d);
         }
-        q = next(q);
     }
-    deleteAfterDepartmen(LD, prev(p), p);
 }
 
 void memindahkanPegawai(listPegawai &LP, listDepartmen &LD, string nip, string kodeDepartmen)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Memindahkan pegawai dari department lama ke department baru
+    berdasarkan kode department da nip*/
     alamatPegawai p = searchPegawai(LP, nip);
     alamatDepartmen q = searchDepartmen(LD, kodeDepartmen);
     if (p != NULL && q != NULL)
     {
         nextDepartment(p) = q;
-        info(q).jumlahPegawai = info(q).jumlahPegawai + 1;
     }
-    else
+    else if(p != NULL)
     {
-        cout << "Data tidak ditemukan" << endl;
-        cout << "Masukkan nip : ";
-        cin >> nip;
-        cout << "Masukkan kode departmen : ";
+        printDepartmen(LD, LP);
+        cout << "Masukkan kode departmen untuk pemindahan : ";
         cin >> kodeDepartmen;
+        memindahkanPegawai(LP, LD, nip, kodeDepartmen);
+    }else{
+        printPegawai(LP);
+        cout<<"Masukkan NIP Pegawai dengan tepat: ";
+        cin>>nip;
+        cout<<endl;
+        printDepartmen(LD, LP);
+        cout<<"Msukkan kode department untuk pemindahan: ";
+        cin>>kodeDepartmen;
         memindahkanPegawai(LP, LD, nip, kodeDepartmen);
     }
 }
 
 void deletePegawai(listPegawai &LP, string nip)
 {
-    /*I.S.
-    F.S.*/
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menghapus pegawau berdasar nip*/
+    alamatPegawai p = searchPegawai(LP, nip);
+    if (p != NULL){
+        if(p == first(LP)){
+            deleteFirstPegawai(LP, p);
+        }else if(p == last(LP)){
+            deleteLastPegawai(LP, p);
+        }else{
+            alamatPegawai prec = prev(p);
+            deleteAfterPegawai(LP, prec, p);
+        }
+
+    }else{
+        cout<<"NIP tidak ditemukan"<<endl;
+        cin>>nip;
+        deletePegawai(LP, nip);
+    }
+}
+
+void menampilkanPegawaidenganDepartmen(listPegawai &LP, listDepartmen &LD, string nip)
+{
+    /*I.S. Terdefinisi List (mungkin kosong)
+    F.S. Menampilkan data pegawai beserta departmentnya berdasarkan NIP pegawai*/
     alamatPegawai p = searchPegawai(LP, nip);
     if (p != NULL)
     {
-        deleteAfterPegawai(LP, prev(p), p);
+        cout << "Nama : " << info(p).nama << endl;
+        cout << "NIP : " << info(p).nip << endl;
+        cout << "Gaji : " << info(p).gaji << endl;
+        cout << "Kode Department : " << info(nextDepartment(p)).kode << endl;
+        cout << "Nama Department : " << info(nextDepartment(p)).nama << endl;
     }
     else
     {
-        cout << "Data tidak ditemukan" << endl;
-        cin >> nip;
-        deletePegawai(LP, nip);
+        if(first(LP) == NULL){
+            cout<<"List Kosong"<<endl;
+        }else{
+            cout << "Data tidak ditemukan" << endl;
+            cout << "Masukkan nip : ";
+            cin >> nip;
+            menampilkanPegawaidenganDepartmen(LP, LD, nip);
+        }
+
     }
 }
