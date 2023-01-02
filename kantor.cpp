@@ -372,46 +372,69 @@ void menampilkanPegawaiPalingBanyak(listDepartmen LD, listPegawai LP)
 {
     /*I.S. Terdefinisi List (mungkin kosong)
     F.S. Menampilkan Department dengan jumlah pegawai paling banyak*/
+    cout<< "======Data Department======" << endl;
     alamatDepartmen p = first(LD);
-    int jumlah = 0;
-    string kode;
+    alamatDepartmen q = next(p);
+    int jumlahPegawaiP = menghitungJumlahPegawai(LD, LP, info(p).kode);
+    int jumlahPegawaiQ = menghitungJumlahPegawai(LD, LP, info(q).kode);
     while (p != NULL)
     {
-        int jumlahPegawai = menghitungJumlahPegawai(LD, LP, info(p).kode);
-        if (jumlahPegawai > jumlah)
+        while (q != NULL)
         {
-            jumlah = jumlahPegawai;
-            kode = info(p).kode;
+            if (jumlahPegawaiP < jumlahPegawaiQ)
+            {
+                jumlahPegawaiP = jumlahPegawaiQ;
+            }
+            q = next(q);
         }
         p = next(p);
     }
-    cout << "departmen dengan jumlah pegawai terbanyak adalah : " << endl;
-    cout << "nama : " << info(searchDepartmen(LD, kode)).nama << endl;
-    cout << "kode departemen : " << info(searchDepartmen(LD, kode)).kode << endl;
-    cout << "Jumlah pegawai : " << jumlah << endl;
+    p = first(LD);
+    while (p != NULL)
+    {
+        if (jumlahPegawaiP == menghitungJumlahPegawai(LD, LP, info(p).kode))
+        {
+            cout << "Kode : " << info(p).kode << endl;
+            cout << "Nama : " << info(p).nama << endl;
+            cout << "Jumlah Pegawai : " << menghitungJumlahPegawai(LD, LP, info(p).kode) << endl;
+        }
+        p = next(p);
+    }
 }
 
 void menampilkanPegawaiPalingSedikit(listDepartmen LD, listPegawai LP)
 {
     /*I.S. Terdefinisi List (mungkin kosong)
     F.S. Menampilkan Department dengan Jumlah pegawai paling sedikit*/
-    alamatDepartmen p = first(LD);
-    int jumlah = 100;
-    string kode;
-    while (p != NULL)
-    {
-        int jumlahPegawai = menghitungJumlahPegawai(LD, LP, info(p).kode);
-        if (jumlahPegawai < jumlah)
-        {
-            jumlah = jumlahPegawai;
-            kode = info(p).kode;
+    cout<< "======Data Department======" << endl;
+
+    alamatDepartmen p = next(first(LD));
+    alamatDepartmen minAdr = first(LD);
+    int minPegawai = countPegawai(LP,p);
+
+    while (p!=NULL){
+        int temp = countPegawai(LP,p);
+        if (temp<minPegawai){
+            minPegawai = temp;
+            minAdr = p;
         }
         p = next(p);
     }
-    cout << "departmen dengan jumlah pegawai tersedikit adalah : " << endl;
-    cout << "nama : " << info(searchDepartmen(LD, kode)).nama << endl;
-    cout << "kode departemen : " << info(searchDepartmen(LD, kode)).kode << endl;
-    cout << "jumlah pegawai : " << jumlah << endl;
+
+    int minimumPegawai = minPegawai;
+    alamatDepartmen x = first(LD);
+    while (x!=NULL){
+        if(countPegawai(LP,x)==minimumPegawai){
+            cout << "Kode : " << info(x).kode << endl;
+            cout << "Nama : " << info(x).nama << endl;
+            cout << "Jumlah Pegawai : " << countPegawai(LP,x) << endl;
+            cout << endl;
+        }
+        x = next(x);
+    }
+
+
+
 }
 
 void menambahDepartment(listDepartmen &LD, int N)
@@ -419,7 +442,7 @@ void menambahDepartment(listDepartmen &LD, int N)
     /*I.S. Terdefinisi List (mungkin kosong)
     F.S. Menambah department kedalam List dengan jumlah tertentu*/
     for(int i = 1; i <= N; i++){
-        cout<<"==== Data ["<<i<<"]"<<endl;
+        cout<<"Data["<<i<<"]"<<endl;
         infotypeDepartmen x;
         string nama, kode;
         alamatDepartmen p;
@@ -505,7 +528,10 @@ int menu()
     /*Mengembalikan angka untuk menu
     */
     int pilihan;
-    cout << "1. Menambahkan data department" << endl;
+    cout<< "==============================" <<endl;
+    cout<< "||         MENU UTAMA       ||" <<endl;
+    cout<< "==============================" <<endl;
+    cout << "1. Menambahkan data N department" << endl;
     cout << "2. Menambahkan data N pegawai" << endl;
     cout << "3. Menampilkan data pegawai" << endl;
     cout << "4. Menampilkan data departmen" << endl;
@@ -656,5 +682,21 @@ void menampilkanPegawaidenganDepartmen(listPegawai &LP, listDepartmen &LD, strin
             menampilkanPegawaidenganDepartmen(LP, LD, nip);
         }
 
+    }
+}
+
+int countPegawai(listPegawai LP, alamatDepartmen AD){
+    int counter = 0;
+    if (first(LP)==NULL || AD == NULL){
+        return 0;
+    }else{
+        alamatPegawai AP = first(LP);
+        while (AP!=NULL){
+            if (nextDepartment(AP)==AD){
+                counter++;
+            }
+            AP = next(AP);
+        }
+        return counter;
     }
 }

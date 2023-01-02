@@ -36,7 +36,7 @@ int main()
             cout<<"Q: Apakah anda ingin menambah pegawai? (Y/N) ";
             cin>>M;
             if((M == 'Y') || (M == 'y')){
-                cout<<"Masukkan jumlah department yang ingin ditambah: ";
+                cout<<"Masukkan jumlah pegawai yang ingin ditambah: ";
                 cin >> N;
                 menambahkanPegawai(LP, LD, N);
             }
@@ -52,22 +52,30 @@ int main()
             break;
         case 5:
             system("cls");
-            if(first(LP) != NULL){
-                cout<<"Masukkan NIP dari pegawai: ";
-                cin>>nip;
-                menampilkanPegawaidenganDepartmen(LP, LD, nip);
-            }else{
-                cout<<"Maaf List Pegawai Kosong"<<endl;
+            cout<<"Apa anda ingin melanjutkan program? (Y/N)";
+            cin>>M;
+            if(M == 'Y' || M == 'y'){
+                if(first(LP) != NULL){
+                    cout<<"Masukkan NIP dari pegawai: ";
+                    cin>>nip;
+                    menampilkanPegawaidenganDepartmen(LP, LD, nip);
+                }else{
+                    cout<<"Maaf List Pegawai Kosong"<<endl;
+                }
             }
             break;
         case 6:
             system("cls");
-            if(first(LD) != NULL){
-                cout<< "Masukkan kode department: ";
-                cin>> kodeCari;
-                menampilkanDepartmentdenganPegawainya(LD, LP, kodeCari);
-            }else{
-                cout<<"Maaf List Kosong"<<endl;
+            cout<<"Apa anda ingin melanjutkan program? (Y/N)";
+            cin>>M;
+            if(M == 'Y' || M == 'y'){
+                if(first(LD) != NULL){
+                    cout<< "Masukkan kode department: ";
+                    cin>> kodeCari;
+                    menampilkanDepartmentdenganPegawainya(LD, LP, kodeCari);
+                }else{
+                    cout<<"Maaf List Kosong"<<endl;
+                }
             }
             break;
         case 7:
@@ -90,56 +98,60 @@ int main()
             break;
         case 10:
             system("cls");
-            cout << "Masukkan kode department yang ingin dihapus: ";
-            cin >> kodePemecatan;
-            searchingDep = searchDepartmen(LD, kodePemecatan);
-            while (searchingDep == NULL)
-            {
-                cout << "Kode department tidak ditemukan!" << endl;
+            cout<<"Apa anda ingin melanjutkan program? (Y/N)";
+            cin>>M;
+            if(M == 'Y' || M == 'y'){
                 cout << "Masukkan kode department yang ingin dihapus: ";
                 cin >> kodePemecatan;
                 searchingDep = searchDepartmen(LD, kodePemecatan);
-            }
-            cout << "Apakah pegawai semua dipecat? (Y/N): ";
-            cin >> pemecatan;
-            deleteDepartment(LD, LP, kodePemecatan);
-            peg = first(LP);
-            if (pemecatan == 'Y' || pemecatan == 'y')
-            {
-                if(peg != NULL){
-                    while(peg != NULL){
-                        if(info(nextDepartment(peg)).kode == kodePemecatan){
-                            deletePegawai(LP, info(peg).nip);
-                        }
-                        peg = next(peg);
-                    }
-                }
-            }
-            else if (pemecatan == 'N' || pemecatan == 'n')
-            {
-                peg = first(LP);
-                if(peg != NULL)
+                while (searchingDep == NULL)
                 {
-                        while (peg != NULL)
-                        {
-                            if (info(nextDepartment(peg)).kode == kodePemecatan)
-                            {
-                                cout << "Pindahkan kemanapun? (Masukkan kode department): ";
-                                cin >> kodePindah;
-                                memindahkanPegawai(LP, LD, info(peg).nip, kodePindah);
-                                deleteDepartment(LD, LP, kodePemecatan);
+                    cout << "Kode department tidak ditemukan!" << endl;
+                    cout << "Masukkan kode department yang ingin dihapus: ";
+                    cin >> kodePemecatan;
+                    searchingDep = searchDepartmen(LD, kodePemecatan);
+                }
+                cout << "Apakah pegawai semua dipecat? (Y/N): ";
+                cin >> pemecatan;
+                deleteDepartment(LD, LP, kodePemecatan);
+                peg = first(LP);
+                if (pemecatan == 'Y' || pemecatan == 'y')
+                {
+                    if(peg != NULL){
+                        while(peg != NULL){
+                            if(info(nextDepartment(peg)).kode == kodePemecatan){
+                                deletePegawai(LP, info(peg).nip);
                             }
                             peg = next(peg);
                         }
-                }else{
-
-                    cout<<"Maaf List Pegawai Kosong"<<endl;
+                    }
                 }
+                else if (pemecatan == 'N' || pemecatan == 'n')
+                {
+                    peg = first(LP);
+                    if(peg != NULL)
+                    {
+                            while (peg != NULL)
+                            {
+                                if (info(nextDepartment(peg)).kode == kodePemecatan)
+                                {
+                                    cout << "Pindahkan kemanapun? (Masukkan kode department): ";
+                                    cin >> kodePindah;
+                                    memindahkanPegawai(LP, LD, info(peg).nip, kodePindah);
+                                    deleteDepartment(LD, LP, kodePemecatan);
+                                }
+                                peg = next(peg);
+                            }
+                    }else{
 
-            }
-            else
-            {
-                cout << "Inputan salah!" << endl;
+                        cout<<"Maaf List Pegawai Kosong"<<endl;
+                    }
+
+                }
+                else
+                {
+                    cout << "Inputan salah!" << endl;
+                }
             }
             break;
         default:

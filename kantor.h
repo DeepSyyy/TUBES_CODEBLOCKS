@@ -80,5 +80,6 @@ bool isSameNIP(listPegawai LP);
 void menampilkanDepartmentdenganPegawainya(listDepartmen &LD, listPegawai &LP, string kode);
 void menampilkanPegawaidenganDepartmen(listPegawai &LP, listDepartmen &LD, string nip);
 int menu();
+int countPegawai(listPegawai LP,alamatDepartmen AD);
 
 #endif
